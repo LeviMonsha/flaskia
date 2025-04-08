@@ -10,6 +10,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
 DATABASE_URL = os.getenv("DATABASE_URL")
+JWT_KEY = os.getenv("JWT_KEY")
 
 origins = [
     "http://localhost:3000",
