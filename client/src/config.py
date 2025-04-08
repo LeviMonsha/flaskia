@@ -12,8 +12,7 @@ DB_NAME = os.getenv("DB_NAME")
 DATABASE_URL = os.getenv("DATABASE_URL")
 JWT_KEY = os.getenv("JWT_KEY")
 
-origins = [
-    "http://localhost:3000",
-    "http://localhost",
-    "http://localhost:8000"
-]
+class Config:
+    SQLALCHEMY_DATABASE_URI = 'postgresql://admin:admin@db/flaskia'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'secret_key'

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация и вход</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Регистрация</h2>
+          <form method="POST" action="" enctype="multipart/form-data">
+            {{ register_form.hidden_tag() }} {{ register_form.username.label }}
+            {{ register_form.username() }} {{ register_form.password.label }} {{
+            register_form.password() }} {{ register_form.confirm_password.label
+            }} {{ register_form.confirm_password() }} {{ register_form.submit()
+            }}
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2>Вход</h2>
+          <form method="POST" action="" enctype="multipart/form-data">
+            {{ login_form.hidden_tag() }} {{ login_form.username.label }} {{
+            login_form.username() }} {{ login_form.password.label }} {{
+            login_form.password() }} {{ login_form.submit() }}
+          </form>
+        </div>
+      </div>
+      {% if message %}
+      <p>{{ message }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

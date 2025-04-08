@@ -23,7 +23,7 @@ services:
       - pgadmin_data:/var/lib/pgadmin
 
   backend:
-    build: ./backend
+    build: ./client
     restart: always
     ports:
       - "5000:5000"
@@ -31,17 +31,9 @@ services:
       - db
     environment:
       FLASK_DEBUG: 1
-      FLASK_APP: src/app.py
+      FLASK_APP: src/__init__.py
       FLASK_RUN_HOST: 0.0.0.0
       DATABASE_URL: postgresql://admin:admin@db:5432/flaskia
-
-  frontend:
-    build: ./frontend
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      REACT_APP_API_URL: http://localhost:5000
 
 volumes:
   db-data:
