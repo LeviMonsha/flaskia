@@ -13,5 +13,10 @@
     />
     Привет, {{ user.username }}!
   </p>
+  {% for post in posts %}
+  <div>
+    <p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}

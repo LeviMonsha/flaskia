@@ -16,15 +16,13 @@
   <body>
     <header class="bg-gray-100 py-4 shadow-md">
       <nav class="container mx-auto flex justify-end">
-        <ul class="flex items-center gap-4">
-          <li>
-            <a
-              href="{{ url_for('auth.auth_page') }}"
-              class="text-blue-600 hover:text-blue-800"
-              >Выйти</a
-            >
-          </li>
-        </ul>
+        Микроблог:
+        <a href="{{ url_for('home.home_page') }}">Домой</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('auth.auth_page') }}">Войти</a>
+        {% else %}
+        <a href="{{ url_for('home.logout') }}">Выйти</a>
+        {% endif %}
       </nav>
     </header>
     <main class="container mx-auto p-10 mt-10">

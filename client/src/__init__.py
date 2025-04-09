@@ -1,6 +1,6 @@
-from flask import Flask, redirect
+from flask import Flask
 from flask_wtf import CSRFProtect
-from flask_login import LoginManager, logout_user
+from flask_login import LoginManager
 from src.config import Config
 from src.models import User
 from src.db import db
@@ -26,11 +26,6 @@ def create_app(config_class=Config):
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
-    @app.route('/logout')
-    def logout():
-        logout_user()
-        return redirect(url_for('home.home_page'))
 
     with app.app_context():
         db.create_all()
