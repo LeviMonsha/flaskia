@@ -1,4 +1,17 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Главная страница</h1>
-<p>Привет, {{ user.username }}!</p>
+<div class="max-w-5xl mx-auto p-10 mt-20 bg-white rounded-lg shadow-md">
+  <h1
+    class="text-5xl font-bold text-center py-5 mb-10 border-b border-gray-300"
+  >
+    Главная страница
+  </h1>
+  <p class="text-lg text-gray-600 text-center mb-10 flex justify-center">
+    <img
+      src="{{ url_for('static', filename='wave_hand.gif') }}"
+      alt="wave hand"
+      class="w-6 h-6 mr-2"
+    />
+    Привет, {{ user.username }}!
+  </p>
+</div>
 {% endblock %}

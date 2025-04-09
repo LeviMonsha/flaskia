@@ -8,15 +8,27 @@
       rel="shortcut icon"
       href="{{ url_for('static', filename='favicon.ico') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='dist/output.css') }}"
+    />
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="{{ url_for('auth.auth_page') }}">Выйти</a></li>
+    <header class="bg-gray-100 py-4 shadow-md">
+      <nav class="container mx-auto flex justify-end">
+        <ul class="flex items-center gap-4">
+          <li>
+            <a
+              href="{{ url_for('auth.auth_page') }}"
+              class="text-blue-600 hover:text-blue-800"
+              >Выйти</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
-    <main>{% block content %}{% endblock %}</main>
+    <main class="container mx-auto p-10 mt-10">
+      {% block content %}{% endblock %}
+    </main>
   </body>
 </html>
