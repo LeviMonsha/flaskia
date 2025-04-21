@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>Flaskia</title>
     <link
       rel="shortcut icon"
       href="{{ url_for('static', filename='favicon.ico') }}"
@@ -16,17 +16,29 @@
   <body>
     <header class="bg-gray-100 py-4 shadow-md">
       <nav class="container mx-auto flex justify-end">
-        Микроблог:
+        Микроблог Flaskia:
         <a href="{{ url_for('home.home_page') }}">Домой</a>
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('auth.auth_page') }}">Войти</a>
+        <a href="{{ url_for('auth.login_page') }}">Войти</a>
         {% else %}
         <a href="{{ url_for('home.logout') }}">Выйти</a>
         {% endif %}
       </nav>
     </header>
     <main class="container mx-auto p-10 mt-10">
-      {% block content %}{% endblock %}
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="mb-8 space-y-4">
+        {% for category, message in messages %}
+        <div
+          class="px-4 py-3 rounded-md {% if category == 'error' %}bg-red-50 text-red-800 {% else %}bg-blue-50 text-blue-800{% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
     </main>
+    <footer>&copy; 2025 Микроблог Flaskia. Все права защищены.</footer>
   </body>
 </html>

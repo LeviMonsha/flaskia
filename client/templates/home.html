@@ -5,6 +5,7 @@
   >
     Главная страница
   </h1>
+  {% if current_user.is_authenticated %}
   <p class="text-lg text-gray-600 text-center mb-10 flex justify-center">
     <img
       src="{{ url_for('static', filename='wave_hand.gif') }}"
@@ -13,10 +14,19 @@
     />
     Привет, {{ user.username }}!
   </p>
+  {% endif %}
+  <div>
   {% for post in posts %}
   <div>
-    <p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
+    <div>
+      <h3">{{ post.author.username }}</h3>
+      <p>Дата публикации: DD:MM:YYYY</p>
+    </div>
+    <b>{{ post.body }}</b>
   </div>
+  
   {% endfor %}
+  
+</div>
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 flask
 flask-sqlalchemy
 flask-wtf
+email_validator
 flask-login
 psycopg2
 Werkzeug

@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %}Вход{% endblock %} {% block content
+%}
+<div>
+  <div class="w-full md:w-1/2">
+    <h2 class="text-3xl font-bold mb-5">Вход</h2>
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ login_form.hidden_tag() }}
+      <div class="mb-5">
+        {{ login_form.username.label }} {{ login_form.username(class_='w-full \
+        p-2 border border-gray-300 \ rounded') }}
+      </div>
+      <div class="mb-5">
+        {{ login_form.password.label }} {{ login_form.password(class_='w-full \
+        p-2 border border-gray-300 \ rounded') }}
+      </div>
+      <div class="flex items-center mb-5">
+        {{ login_form.remember_me() }} {{ login_form.remember_me.label }}
+      </div>
+      {{ login_form.submit(class_='bg-blue-500 hover:bg-blue-700 \ text-white \
+      font-bold py-2 px-4 rounded') }}
+    </form>
+  </div>
+</div>
+{% endblock %}

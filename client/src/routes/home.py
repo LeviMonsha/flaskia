@@ -15,9 +15,10 @@ def home_page():
             'body': 'The Avengers movie was so cool!'
         }
     ]
-    return render_template('home.html', title='Главная страница', user=current_user, posts=posts)
+    return render_template('home.html', user=current_user, posts=posts)
 
 @home.route('/logout')
 def logout():
-    logout_user()
+    if current_user.is_authenticated:
+        logout_user()
     return redirect(url_for('home.home_page'))

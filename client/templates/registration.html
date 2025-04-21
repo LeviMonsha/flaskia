@@ -1,0 +1,30 @@
+{% extends 'base.html' %}{% block title %}Регистрация{% endblock %} {% block
+content %}
+<div>
+  <h2 class="text-3xl font-bold mb-5">Регистрация</h2>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ register_form.hidden_tag() }}
+    <div class="mb-5">
+      {{ register_form.username.label }} {{
+      register_form.username(class_='w-full p-2 border border-gray-300 \
+      rounded') }}
+    </div>
+    <div class="mb-5">
+      {{ register_form.email.label }} {{ register_form.email(class_='w-full p-2 \
+      border border-gray-300 rounded') }}
+    </div>
+    <div class="mb-5">
+      {{ register_form.password.label }} {{
+      register_form.password(class_='w-full p-2 border border-gray-300 \
+      rounded') }}
+    </div>
+    <div class="mb-5">
+      {{ register_form.confirm_password.label }} {{
+      register_form.confirm_password(class_='w-full p-2 border border-gray-300 \
+      rounded') }}
+    </div>
+    {{ register_form.submit(class_='bg-blue-500 hover:bg-blue-700 text-white \
+    font-bold py-2 px-4 rounded') }}
+  </form>
+</div>
+{% endblock %}

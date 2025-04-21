@@ -11,6 +11,6 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 JWT_KEY = os.getenv("JWT_KEY")
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = 'postgresql://admin:admin@db/flaskia'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://admin:admin@postgres/flaskia'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'secret_key'
