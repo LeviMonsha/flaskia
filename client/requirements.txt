@@ -3,6 +3,7 @@ flask-sqlalchemy
 flask-wtf
 email_validator
 flask-login
+datetime
 psycopg2
 Werkzeug
 python-dotenv

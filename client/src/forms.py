@@ -14,3 +14,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
+
+class PostForm(FlaskForm):
+    title = StringField('Заголовок поста', validators=[DataRequired()])
+    body = StringField('Содержимое поста', validators=[DataRequired()])
+    submit = SubmitField('Опубликовать')

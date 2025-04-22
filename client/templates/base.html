@@ -14,8 +14,8 @@
     />
   </head>
   <body>
-    <header class="bg-gray-100 py-4 shadow-md">
-      <nav class="container mx-auto flex justify-end">
+    <header>
+      <nav>
         Микроблог Flaskia:
         <a href="{{ url_for('home.home_page') }}">Домой</a>
         {% if current_user.is_anonymous %}
@@ -25,16 +25,12 @@
         {% endif %}
       </nav>
     </header>
-    <main class="container mx-auto p-10 mt-10">
+    <main>
       {% with messages = get_flashed_messages(with_categories=true) %} {% if
       messages %}
-      <div class="mb-8 space-y-4">
+      <div>
         {% for category, message in messages %}
-        <div
-          class="px-4 py-3 rounded-md {% if category == 'error' %}bg-red-50 text-red-800 {% else %}bg-blue-50 text-blue-800{% endif %}"
-        >
-          {{ message }}
-        </div>
+        <div>{{ message }}</div>
         {% endfor %}
       </div>
       {% endif %} {% endwith %} {% block content %}{% endblock %}

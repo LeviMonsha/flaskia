@@ -1,32 +1,176 @@
 {% extends 'base.html' %} {% block content %}
-<div class="max-w-5xl mx-auto p-10 mt-20 bg-white rounded-lg shadow-md">
+<div
+  style="max-width: 700px; margin: 40px auto; font-family: Arial, sans-serif"
+>
   <h1
-    class="text-5xl font-bold text-center py-5 mb-10 border-b border-gray-300"
+    style="
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #333;
+    "
   >
-    Главная страница
+    Flaskia
   </h1>
+
   {% if current_user.is_authenticated %}
-  <p class="text-lg text-gray-600 text-center mb-10 flex justify-center">
-    <img
-      src="{{ url_for('static', filename='wave_hand.gif') }}"
-      alt="wave hand"
-      class="w-6 h-6 mr-2"
-    />
-    Привет, {{ user.username }}!
-  </p>
-  {% endif %}
-  <div>
-  {% for post in posts %}
-  <div>
-    <div>
-      <h3">{{ post.author.username }}</h3>
-      <p>Дата публикации: DD:MM:YYYY</p>
-    </div>
-    <b>{{ post.body }}</b>
+  <div style="margin-bottom: 20px">
+    <p
+      style="
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.25rem;
+        color: #444;
+      "
+    >
+      <img
+        src="{{ url_for('static', filename='wave_hand.gif') }}"
+        alt="wave hand"
+        style="width: 30px; height: 30px"
+      />
+      Привет, {{ user.username }}!
+    </p>
+    <button
+      onclick="openModal()"
+      style="
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      "
+    >
+      Создать пост
+    </button>
   </div>
-  
-  {% endfor %}
-  
+  {% endif %}
+
+  <div
+    id="postModal"
+    class="hidden"
+    style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: none;
+    "
+  >
+    <div
+      style="
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      "
+    >
+      <h3
+        style="
+          margin-top: 0;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+          color: #111;
+          text-align: center;
+        "
+      >
+        Новый пост
+      </h3>
+
+      <form method="POST">
+        {{ post_form.hidden_tag() }}
+
+        <div style="margin-bottom: 1rem">
+          {{ post_form.title(style="width: 100%; padding: 8px; border: 1px solid
+          #ccc; border-radius: 6px; font-size: 1rem;") }}
+        </div>
+
+        <div style="margin-bottom: 1rem">
+          {{ post_form.body(style="width: 100%; padding: 8px; border: 1px solid
+          #ccc; border-radius: 6px; font-size: 1rem; min-height: 100px; resize:
+          vertical;") }}
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px">
+          <button
+            type="button"
+            onclick="closeModal()"
+            style="
+              background-color: #6b7280;
+              color: white;
+              border: none;
+              padding: 8px 16px;
+              border-radius: 6px;
+              cursor: pointer;
+            "
+          >
+            Отмена
+          </button>
+          {{ post_form.submit(style="background-color: #2563eb; color: white;
+          border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;
+          font-weight: bold;") }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Список постов -->
+  <div>
+    {% for post in posts %}
+    <div style="border-bottom: 1px solid #ddd; padding: 15px 0">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 5px;
+        "
+      >
+        <h3 style="margin: 0; font-size: 1.1rem; color: #2563eb">
+          {{ post.author.username }}
+        </h3>
+        <span style="font-size: 0.85rem; color: #666"
+          >{{ post.timestamp.strftime('%d.%m.%Y %H:%M') }}</span
+        >
+      </div>
+      <h4 style="margin: 0 0 5px 0; font-size: 1.25rem; color: #111">
+        {{ post.title }}
+      </h4>
+      <p style="margin: 0; color: #333; white-space: pre-line">
+        {{ post.body }}
+      </p>
+    </div>
+    {% endfor %}
+  </div>
 </div>
-</div>
+
+<script>
+  function openModal() {
+    const modal = document.getElementById("postModal");
+    modal.style.display = "flex";
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("postModal");
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    const modal = document.getElementById("postModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+</script>
 {% endblock %}
