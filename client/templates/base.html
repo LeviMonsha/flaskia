@@ -12,29 +12,118 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='dist/output.css') }}"
     />
+    <style>
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f9fafb;
+      }
+      header {
+        background: #f3f4f6;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      nav a {
+        margin-left: 1rem;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      nav a:hover {
+        color: #1d4ed8;
+      }
+      .container {
+        flex: 1;
+        margin: 2rem auto;
+        display: flex;
+        gap: 2rem;
+      }
+      .sidebar,
+      .rightbar {
+        width: 220px;
+      }
+      .main {
+        flex: 1;
+      }
+      .card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .list li:last-child {
+        border-bottom: none;
+      }
+      .btn {
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: #1d4ed8;
+      }
+      .author {
+        color: #2563eb;
+        cursor: pointer;
+      }
+      .author:hover {
+        text-decoration: underline;
+      }
+      footer {
+        background: #f3f4f6;
+        padding: 1rem;
+        text-align: center;
+        color: #888;
+        border-top: 1px solid #ddd;
+      }
+      .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <nav>
-        Микроблог Flaskia:
-        <a href="{{ url_for('home.home_page') }}">Домой</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('auth.login_page') }}">Войти</a>
-        {% else %}
-        <a href="{{ url_for('home.logout') }}">Выйти</a>
-        {% endif %}
-      </nav>
-    </header>
-    <main>
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %}
-      <div>
-        {% for category, message in messages %}
-        <div>{{ message }}</div>
-        {% endfor %}
+    <div class="wrapper">
+      <header>
+        <nav>
+          Микроблог Flaskia:
+          <a href="{{ url_for('home.home_page') }}">Домой</a>
+          {% if current_user.is_anonymous %}
+          <a href="{{ url_for('auth.login_page') }}">Войти</a>
+          {% else %}
+          <a href="{{ url_for('home.logout') }}">Выйти</a>
+          {% endif %}
+          <a href="{{ url_for('auth.registration_page') }}">Создать аккаунт</a>
+        </nav>
+      </header>
+      <div class="container">
+        <aside class="sidebar">{% block leftbar %}{% endblock %}</aside>
+        <main class="main">{% block content %}{% endblock %}</main>
+        <aside class="rightbar">{% block rightbar %}{% endblock %}</aside>
       </div>
-      {% endif %} {% endwith %} {% block content %}{% endblock %}
-    </main>
-    <footer>&copy; 2025 Микроблог Flaskia. Все права защищены.</footer>
+      <footer>&copy; 2025 Микроблог Flaskia. Все права защищены.</footer>
+    </div>
   </body>
 </html>
