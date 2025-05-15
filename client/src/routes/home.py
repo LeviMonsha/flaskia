@@ -57,9 +57,9 @@ def get_post(post_id):
 def create_user():
     data = request.json
     if not data or 'username' not in data:
-        return jsonify({'error': 'Username required'}), 400
+        return jsonify({'error': 'Ошибка создания пользователя'}), 400
     if User.query.filter_by(username=data['username']).first():
-        return jsonify({'error': 'Username already exists'}), 400
+        return jsonify({'error': 'Пользователь уже существует'}), 400
     user = User(username=data['username'])
     db.session.add(user)
     db.session.commit()
@@ -70,10 +70,10 @@ def follow_user(user_id, follow_id):
     user = User.query.get_or_404(user_id)
     to_follow = User.query.get_or_404(follow_id)
     if user.id == to_follow.id:
-        return jsonify({'error': 'Cannot follow yourself'}), 400
+        return jsonify({'error': 'Нельзя подписаться на самого себя'}), 400
     user.follow(to_follow)
     db.session.commit()
-    return jsonify({'message': f'{user.username} now follows {to_follow.username}'}), 200
+    return jsonify({'message': f'{user.username} подписался на {to_follow.username}'}), 200
 
 @home.route('/users/<int:user_id>/unfollow/<int:unfollow_id>', methods=['POST'])
 def unfollow_user(user_id, unfollow_id):
@@ -81,35 +81,16 @@ def unfollow_user(user_id, unfollow_id):
     to_unfollow = User.query.get_or_404(unfollow_id)
     user.unfollow(to_unfollow)
     db.session.commit()
-    return jsonify({'message': f'{user.username} unfollowed {to_unfollow.username}'}), 200
+    return jsonify({'message': f'Вы отписались от {to_unfollow.username}'}), 200
 
 @home.route('/posts', methods=['POST'])
 def create_post():
     data = request.json
     if not data or not all(k in data for k in ('title', 'body', 'user_id')):
-        return jsonify({'error': 'Title, body and user_id required'}), 400
+        return jsonify({'error': 'Не удалось создать пост'}), 400
     
     user = User.query.get_or_404(data['user_id'])
     post = Post(title=data['title'], body=data['body'], author=user)
     db.session.add(post)
     db.session.commit()
     return jsonify(post.to_dict()), 201
-
-@home.route('/posts/<int:post_id>', methods=['PUT'])
-def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    data = request.json
-    if 'title' in data:
-        post.title = data['title']
-    if 'body' in data:
-        post.body = data['body']
-        
-    db.session.commit()
-    return jsonify(post.to_dict())
-
-@home.route('/posts/<int:post_id>', methods=['DELETE'])
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    db.session.delete(post)
-    db.session.commit()
-    return jsonify({'message': 'Post deleted'}), 200

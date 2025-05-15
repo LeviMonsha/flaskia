@@ -25,7 +25,6 @@ def registration_page():
         db.session.commit()
 
         login_user(new_user)
-        flash('Вы успешно зарегистрированы!')
         return redirect(url_for('home.home_page'))
     
     return render_template('registration.html', register_form=register_form)
@@ -41,7 +40,6 @@ def login_page():
         user = User.query.filter_by(username=login_form.username.data).first()
         if user and user.check_password(login_form.password.data):
             login_user(user, remember=login_form.remember_me.data)
-            flash('Вход выполнен успешно')
             return redirect(url_for('home.home_page'))
         else:
             flash('Неправильный логин или пароль')

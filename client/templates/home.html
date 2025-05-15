@@ -34,7 +34,7 @@
     {% if current_user.is_authenticated %}
     <span
       onclick="followUser({{ current_user.id }}, {{ post.author.id }})"
-      style="color: blue; cursor: pointer"
+      style="color: rgb(141, 129, 5); cursor: pointer"
     >
       {{ post.author.username }}
     </span>
